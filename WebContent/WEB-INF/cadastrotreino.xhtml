@@ -14,7 +14,7 @@
 			<div style="position: absolute; top: 100px; left: 80%" >
 				<p:growl autoUpdate="true" />
 			</div>
-			<h2 class="align-center">.: Cadastro de Aluno :.</h2>
+			<h2 class="align-center">.: Treino  :.</h2>
 			<div class="ui-g-12">
 				<p:panel styleClass="card no-border" toggleable="true"
 					toggleSpeed="300">
@@ -28,34 +28,68 @@
 								styleClass="ui-fluid card">
 								
 								<h:panelGroup>
-									
-									
-									<p:commandLink for="itNome" 
-											value="Nome:" 
+									<p:commandLink for="itAluno" 
+											value="Aluno:" 
 											onclick="PF('dlg').show();"
 											process="@this"
-											style="color:blue; text-decoration: underline;">
+											style="color:blue; text-decoration: underline;"/>
 											
-											<p:ajax event="dialogReturn" 
-											        listener="#{alunoController.pessoaFisicaSelecionada}" 
-											        update="itNome itMatricula" />
-											</p:commandLink>
-											
-									<p:inputText id="itNome" value="#{alunoController.entity.pessoaFisica.nome}" required="true">
-										<p:focus for="itNome" />								
+									<p:inputText id="itAluno" value="#{alunoController.entity.nome}" required="true">
+										<p:focus for="itAluno" />								
 									</p:inputText>
 								</h:panelGroup>
+		
 								
+		
+			
 								<h:panelGroup>
+									<h:panelGrid id="panelTelefone" columns="2" columnClasses="ui-grid-col-2, ui-grid-col-4" layout="grid">
+										
+										<h:panelGroup>
+											<p:outputLabel value="DDD:" />
+											<p:inputText value="#{pessoaFisicaController.telefone.codigoArea}"  />
+										</h:panelGroup>
+											
+										<h:panelGroup>			
+												<p:outputLabel value="Número:" />
+												<p:inputText value="#{pessoaFisicaController.telefone.numero}" />
+										</h:panelGroup>	
+											
+									</h:panelGrid>
+									
+									<h:panelGroup>
+										<p:spacer />
+										<p:commandButton value="Adicionar" 
+											actionListener="#{pessoaFisicaController.adicionarTelefone}"
+											update="panelTelefone dtTelefone"
+											process="@this panelTelefone"/>
+									</h:panelGroup>
 								</h:panelGroup>
 								<h:panelGroup>
-									<p:outputLabel value="Matricula:" />
-									<p:inputText id="itMatricula" value="#{alunoController.entity.matricula}" />
+									<p:dataTable id="dtTelefone" styleClass="box-primary" var="tel"
+										value="#{pessoaFisicaController.entity.listaTelefone}">
+										<f:facet name="header">
+											<h:outputText value="Lista de Telefones" />
+										</f:facet>
+										<p:column headerText="DDD">
+											<h:outputText value="#{tel.codigoArea}" />
+										</p:column>
+										<p:column headerText="Número">
+											<h:outputText value="#{tel.numero}" />
+										</p:column>	
+										<p:column>
+											<p:commandLink value="Remover" 
+													actionListener="#{pessoaFisicaController.removerTelefone(tel)}" 
+													update="dtTelefone" process="@this"/>
+										</p:column>	
+									</p:dataTable>
+															
 								</h:panelGroup>
-							<p:spacer />
+								<p:spacer />
 							</p:panelGrid>
 						</div>
 						
+		
 						<p:spacer />
 		
 						<p:panelGrid columns="4" style="text-align: center;"
@@ -63,18 +97,18 @@
 							layout="grid" styleClass="ui-fluid  ">
 		
 							<p:commandButton value="Incluir" styleClass="btn-primary btn-block"
-								disabled="#{alunoController.entity.id != null}"
-								actionListener="#{alunoController.incluir}"
+								disabled="#{pessoaFisicaController.entity.id != null}"
+								actionListener="#{pessoaFisicaController.incluir}"
 								update="@form formDataTable" process="@this pgDados" />
 		
 							<p:commandButton value="Alterar" styleClass="btn-primary btn-block"
-								disabled="#{alunoController.entity.id == null}"
-								actionListener="#{alunoController.alterar}"
+								disabled="#{pessoaFisicaController.entity.id == null}"
+								actionListener="#{pessoaFisicaController.alterar}"
 								update="@form formDataTable" process="@this pgDados" />
 		
 							<p:commandButton value="Excluir" styleClass="btn-primary btn-block"
-								disabled="#{alunoController.entity.id == null}"
-								actionListener="#{alunoController.remover}"
+								disabled="#{pessoaFisicaController.entity.id == null}"
+								actionListener="#{pessoaFisicaController.remover}"
 								update="@form formDataTable" process="@this pgDados">
 								<p:confirm header="Confirmação" 
 											message="Deseja realmente excluir?" 
@@ -82,7 +116,7 @@
 							</p:commandButton>
 
 							<p:commandButton value="Limpar" styleClass="btn-primary btn-block"
-								actionListener="#{alunoController.limpar}"
+								actionListener="#{pessoaFisicaController.limpar}"
 								update="@form formDataTable" process="@this" />
 						</p:panelGrid>
 		
@@ -116,11 +150,9 @@
 								<p:column headerText="Nome">
 									<p:commandLink value="#{pessoa.nome}" 
 											oncomplete="PF('dlg').hide();">
-										<f:ajax render="formDados" execute="@this"  update="itNome itMatricula"/>
+										<f:ajax render="formDados" execute="@this" />
 										<f:setPropertyActionListener value="#{pessoa}"
-											target="#{alunoController.entity.pessoaFisica}" />
-											
-											
+											target="#{pessoaFisicaController.entity}" />
 									</p:commandLink>
 								</p:column>
 			
