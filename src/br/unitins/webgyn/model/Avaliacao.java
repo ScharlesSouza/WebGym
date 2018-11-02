@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 @Entity
 public class Avaliacao extends DefaultEntity<Avaliacao> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7773021255020022734L;
 	private Date dataAvaliacao;
 	private Double altura;
 	private Double peso;

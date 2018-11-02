@@ -7,11 +7,9 @@ import javax.persistence.EntityManager;
 import br.unitins.webgyn.application.Util;
 import br.unitins.webgyn.factory.JPAFactory;
 import br.unitins.webgyn.model.DefaultEntity;
-import br.unitins.webgyn.model.Pessoa;
-import br.unitins.webgyn.repository.PessoaRepository;
 import br.unitins.webgyn.repository.Repository;
 
-public abstract class Controller<T extends DefaultEntity <T>> implements Serializable {
+public abstract class Controller<T extends DefaultEntity<? super T>> implements Serializable {
 	
 	private static final long serialVersionUID = -4859697154833778954L;
 	
@@ -34,16 +32,15 @@ public abstract class Controller<T extends DefaultEntity <T>> implements Seriali
 	public abstract void limpar();
 	
 	public T incluir() {
-		Repository <T> repository = new Repository<T>(getEntityManager());
+		Repository<T> repository = new Repository<T>(getEntityManager());
 		getEntityManager().getTransaction().begin();
 		
 		// incluir 
 		T result = repository.save(getEntity());
-		//getEntityManager().persist(getPessoa());
 		
 		getEntityManager().getTransaction().commit();
 		limpar();
-		Util.addInfoMessage("Inclus„o realizada com sucesso");
+		Util.addInfoMessage("Inclus√£o realizada com sucesso!");
 		return result;
 	}
 	
@@ -54,17 +51,9 @@ public abstract class Controller<T extends DefaultEntity <T>> implements Seriali
 		// alterar 
 		T result = repository.save(getEntity());
 		
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		getEntityManager().getTransaction().commit();
 		limpar();
-		Util.addInfoMessage("AlteraÁ„o realizada com sucesso");
-		System.out.println("Alterar");
+		Util.addInfoMessage("Altera√ß√£o realizada com sucesso!");
 		return result;
 	}
 	
@@ -73,12 +62,11 @@ public abstract class Controller<T extends DefaultEntity <T>> implements Seriali
 		getEntityManager().getTransaction().begin();
 		
 		// remover 
+		repository.save(getEntity());
 		repository.remove(getEntity());
 		
 		getEntityManager().getTransaction().commit();
 		limpar();
-		Util.addInfoMessage("Exclus„o realizada com sucesso");
-		System.out.println("Remover");
-		
+		Util.addInfoMessage("Remo√ß√£o realizada com sucesso!");
 	}
 }

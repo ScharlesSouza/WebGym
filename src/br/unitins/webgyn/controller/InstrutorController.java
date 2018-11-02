@@ -1,18 +1,17 @@
 package br.unitins.webgyn.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.model.SelectItem;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import br.unitins.webgyn.model.Endereco;
+import org.primefaces.event.SelectEvent;
+
 import br.unitins.webgyn.model.Instrutor;
-import br.unitins.webgyn.model.Perfil;
-import br.unitins.webgyn.model.Sexo;
+import br.unitins.webgyn.model.PessoaFisica;
 import br.unitins.webgyn.repository.InstrutorRepository;
 
 @Named
@@ -25,15 +24,10 @@ public class InstrutorController extends Controller<Instrutor> {
 	private static final long serialVersionUID = 3819416611255448958L;
 	
 	private String pesquisa;
+	private PessoaFisica pessoaFisica;
 	
 	private List<Instrutor> listaInstrutor = null;
 	
-	
-	private Endereco endereco = null;
-	
-	private List<Perfil> perfis = null;
-	
-	private List<Sexo> sexos = null;
 
 	public Instrutor getEntity() {
 		if (entity == null)
@@ -42,14 +36,13 @@ public class InstrutorController extends Controller<Instrutor> {
 		return entity;
 	}
 	
+	public void pessoaFisicaSelecionada(SelectEvent event) {
+        PessoaFisica instrutor = (PessoaFisica) event.getObject();
+        getEntity().setPessoaFisica(instrutor);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pessoa Selecionada: "+ getEntity().getPessoaFisica().getNome()));  
+        
+    }
 	
-
-	@PostConstruct
-	public void inicializar() {
-		this.perfis = Arrays.asList(Perfil.values());
-		this.sexos = Arrays.asList(Sexo.values());
-		
-	}
 	
 	@Override
 	public void limpar() {
@@ -57,8 +50,6 @@ public class InstrutorController extends Controller<Instrutor> {
 		listaInstrutor = null;
 		
 	}
-	
-	
 	
 	public void pesquisar() {
 		InstrutorRepository repository = new InstrutorRepository(getEntityManager());
@@ -73,15 +64,7 @@ public class InstrutorController extends Controller<Instrutor> {
 		return listaInstrutor;
 	}
 
-
-	public List<Perfil> getPerfis() {
-		return perfis;
-	}
 	
-	public List<Sexo> getSexos() {
-		return sexos;
-	}
-
 	public String getPesquisa() {
 		return pesquisa;
 	}
@@ -89,17 +72,13 @@ public class InstrutorController extends Controller<Instrutor> {
 	public void setPesquisa(String pesquisa) {
 		this.pesquisa = pesquisa;
 	}
-
-
-
-	public Endereco getEndereco() {
-		return endereco;
+	
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
 	}
 
-
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
 	}
 
 }

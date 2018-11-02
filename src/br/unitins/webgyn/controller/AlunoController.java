@@ -1,18 +1,18 @@
 package br.unitins.webgyn.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import br.unitins.webgyn.model.Aluno;
-import br.unitins.webgyn.model.Perfil;
-import br.unitins.webgyn.model.Sexo;
-import br.unitins.webgyn.repository.AlunoRepository;
+import org.primefaces.event.SelectEvent;
 
+import br.unitins.webgyn.model.Aluno;
+import br.unitins.webgyn.model.PessoaFisica;
+import br.unitins.webgyn.repository.AlunoRepository;
 
 @Named
 @ViewScoped
@@ -21,42 +21,33 @@ public class AlunoController extends Controller<Aluno> {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3780741359637379099L;
-
+	private static final long serialVersionUID = 3819416611255448958L;
 	
 	private String pesquisa;
-
+	private PessoaFisica pessoaFisica;
+	
 	private List<Aluno> listaAluno = null;
 	
-	private List<Aluno> listaNomeAluno = null;
-	
-	private List<Sexo> sexos = null;
-	
-	@Override
+
 	public Aluno getEntity() {
-		
 		if (entity == null)
 			entity = new Aluno();
+			
 		return entity;
 	}
 	
-	public List<Sexo> getSexos() {
-		return sexos;
-	}
-
-	public void setSexos(List<Sexo> sexos) {
-		this.sexos = sexos;
-	}
-
+	public void pessoaFisicaSelecionada(SelectEvent event) {
+        PessoaFisica Aluno = (PessoaFisica) event.getObject();
+        getEntity().setPessoaFisica(Aluno);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pessoa Selecionada: "+ getEntity().getPessoaFisica().getNome()));  
+        
+    }
+	
+	
 	@Override
 	public void limpar() {
 		setEntity(null);
 		listaAluno = null;
-	}
-	
-	@PostConstruct
-	public void inicializar() {
-		this.sexos = Arrays.asList(Sexo.values());
 		
 	}
 	
@@ -74,14 +65,20 @@ public class AlunoController extends Controller<Aluno> {
 	}
 
 	
-	
-
 	public String getPesquisa() {
 		return pesquisa;
 	}
 
 	public void setPesquisa(String pesquisa) {
 		this.pesquisa = pesquisa;
+	}
+	
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
+	}
+
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
 	}
 
 }

@@ -3,280 +3,147 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-
-<ui:composition template="/template.xhtml">
-
-	<!--codigo do conteudo principal  -->
-	<ui:define name="conteudo">
-		<p:ajaxStatus onstart="PF('statusDialog').show()"
-			onsuccess="PF('statusDialog').hide()" />
-
-		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-			closable="false" resizable="false" showHeader="false">
-			<p:graphicImage name="/images/loading.gif" />
-		</p:dialog>
-		<div style="position: absolute; top: 100px; left: 80%">
-			<p:growl autoUpdate="true" />
-		</div>
-		<h3 class="align-center">Cadastro de Alunos</h3>
-		<div class="ui-g-12">
-			<p:panel styleClass="card no-border" toggleable="true"
-				toggleSpeed="300">
-
-				<h:form id="formDados">
-
-					<div style="text-align: left;"
-						class="ui-fluid #{layoutMB.flat ? 'ui-flat':''} ">
-						<p:panelGrid id="pgDados" columns="2"
-							columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
-							styleClass="ui-fluid card">
-
-							<h:panelGroup>
-								<p:commandLink for="itNome" value="Nome:"
-									onclick="PF('dlg').show();" process="@this"
-									style="color:blue; text-decoration: underline;" />
-								<p:inputText id="itNome" value="#{alunoController.entity.nome}"
-									required="true">
-									<p:focus for="itNome" />
-								</p:inputText>
-							</h:panelGroup>
-
-
-
-							<h:panelGroup>
-								<p:outputLabel value="CPF:" />
-								<p:inputText id="itCpf" value="#{alunoController.entity.cpf}" />
-							</h:panelGroup>
-
-							<h:panelGroup>
-								<p:outputLabel value="Data de Nascimento:" />
-								<p:calendar value="#{alunoController.entity.dataNascimento}"
-									pattern="dd/MM/yyyy" mask="true" locale="pt_BR" />
-							</h:panelGroup>
-
-
-
-							<h:panelGroup>
-								<h:outputLabel value="Sexo:" for="sexo" />
-								<h:selectOneMenu id="sexo"
-									value="#{alunoController.entity.sexo}">
-									<f:selectItem itemlabel="Selecione o Sexo" />
-									<f:selectItems value="#{alunoController.sexos}" var="sexo"
-										itemLabel="#{sexo}" itemValue="#{sexo}" />
-
-								</h:selectOneMenu>
-
-							</h:panelGroup>
-
-							<h:panelGroup>
-								<p:outputLabel value="Telefone:" />
-								<p:inputText value="#{alunoController.entity.telefone}">
-
-								</p:inputText>
-							</h:panelGroup>
-
-
-
-							<h:panelGroup>
-								<p:outputLabel value="Endereco-" />
-								<p:outputLabel value=" CEP:" />
-								<p:inputText value="#{alunoController.entity.cep}" />
-							</h:panelGroup>
-
-							<h:panelGroup>
-
-								<p:outputLabel value="logradouro:" />
-								<p:inputText value="#{alunoController.entity.logradouro}" />
-
-							</h:panelGroup>
-
-							<h:panelGroup>
-
-								<p:outputLabel value="Numero:" />
-								<p:inputText value="#{alunoController.entity.numero}" />
-
-							</h:panelGroup>
-							<h:panelGroup>
-
-								<p:outputLabel value="Complemento:" />
-								<p:inputText value="#{alunoController.entity.complemento}" />
-							</h:panelGroup>
-
-
-
-							<h:panelGroup>
-								<p:outputLabel value="Cidade:" />
-								<p:inputText value="#{alunoController.entity.cidade}" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<p:outputLabel value="Estado:" />
-								<p:inputText value="#{alunoController.entity.estado}" />
-
-
-
-							</h:panelGroup>
-
-
-							<h:panelGroup>
-								<p:outputLabel value="Email:" />
-								<p:inputText id="itEmail"
-									value="#{alunoController.entity.email}" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<p:outputLabel value="Senha:" />
-								<p:inputText value="#{alunoController.entity.senha}">
-
-								</p:inputText>
-							</h:panelGroup>
-							<p:spacer />
-						</p:panelGrid>
-
-					</div>
-
-					<p:spacer />
-
-					<p:panelGrid columns="4" style="text-align: center;"
-						columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
-						layout="grid" styleClass="ui-fluid  ">
-
-						<p:commandButton value="Incluir"
-							styleClass="btn-primary btn-block"
-							disabled="#{alunoController.entity.id != null}"
-							actionListener="#{alunoController.incluir}"
-							update="@form formDataTable" process="@this pgDados" />
-
-						<p:commandButton value="Alterar"
-							styleClass="btn-primary btn-block"
-							disabled="#{alunoController.entity.id == null}"
-							actionListener="#{alunoController.alterar}"
-							update="@form formDataTable" process="@this pgDados" />
-
-						<p:commandButton value="Excluir"
-							styleClass="btn-primary btn-block"
-							disabled="#{alunoController.entity.id == null}"
-							actionListener="#{alunoController.remover}"
-							update="@form formDataTable" process="@this pgDados">
-							<p:confirm header="Confirmação"
-								message="Deseja realmente excluir?" icon="ui-icon-alert" />
-						</p:commandButton>
-
-						<p:commandButton value="Limpar" styleClass="btn-primary btn-block"
-							actionListener="#{alunoController.limpar}"
-							update="@form formDataTable" process="@this" />
-					</p:panelGrid>
-
-
-
-				</h:form>
-
-			</p:panel>
-			<p:spacer />
-			<p:dialog header="Modal Dialog" widgetVar="dlg" modal="true"
-				height="400">
-				<h:form>
-					<p:inputText id="itPesquisa" value="#{alunoController.pesquisa}" />
-					<p:commandButton value="Pesquisar"
-						actionListener="#{alunoController.pesquisar}"
-						process="@this itPesquisa" update="formDataTable" />
-				</h:form>
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+			 
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+			    <p:graphicImage name="/images/loading.gif" />
+			</p:dialog>
+			<div style="position: absolute; top: 100px; left: 80%" >
+				<p:growl autoUpdate="true" />
+			</div>
+			<h2 class="align-center">.: Cadastro de Aluno :.</h2>
+			<div class="ui-g-12">
 				<p:panel styleClass="card no-border" toggleable="true"
 					toggleSpeed="300">
-					<h:form id="formDataTable">
-						<p:dataTable styleClass="box-primary" var="aluno"
-							value="#{alunoController.listaAluno}">
-							<f:facet name="header">
-								<h:outputText value="Lista de alunos Cadastradas" />
-							</f:facet>
-							<p:column headerText="Id">
-								<h:outputText value="#{aluno.id}" />
-							</p:column>
+		
+					<h:form id="formDados">
+						
+						<div style="text-align: left;"
+							class="ui-fluid #{layoutMB.flat ? 'ui-flat':''} ">
+							<p:panelGrid id="pgDados" columns="2"
+								columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
+								styleClass="ui-fluid card">
+								
+								<h:panelGroup>
+									
+									
+									<p:commandLink for="itNome" 
+											value="Nome:" 
+											onclick="PF('dlg').show();"
+											process="@this"
+											style="color:blue; text-decoration: underline;">
+											
+											<p:ajax event="dialogReturn" 
+											        listener="#{alunoController.pessoaFisicaSelecionada}" 
+											        update="itNome" />
+											</p:commandLink>
+											
+									<p:inputText id="itNome" value="#{alunoController.entity.pessoaFisica.nome}" required="true">
+										<p:focus for="itNome" />								
+									</p:inputText>
+								</h:panelGroup>
+								
+								<h:panelGroup>
+								</h:panelGroup>
+								<h:panelGroup>
+									<p:outputLabel value="Matricula:" />
+									<p:inputText value="#{alunoController.entity.matricula}" />
+								</h:panelGroup>
+							<p:spacer />
+							</p:panelGrid>
+						</div>
+						
+						<p:spacer />
+		
+						<p:panelGrid columns="4" style="text-align: center;"
+							columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
+							layout="grid" styleClass="ui-fluid  ">
+		
+							<p:commandButton value="Incluir" styleClass="btn-primary btn-block"
+								disabled="#{alunoController.entity.id != null}"
+								actionListener="#{alunoController.incluir}"
+								update="@form formDataTable" process="@this pgDados" />
+		
+							<p:commandButton value="Alterar" styleClass="btn-primary btn-block"
+								disabled="#{alunoController.entity.id == null}"
+								actionListener="#{alunoController.alterar}"
+								update="@form formDataTable" process="@this pgDados" />
+		
+							<p:commandButton value="Excluir" styleClass="btn-primary btn-block"
+								disabled="#{alunoController.entity.id == null}"
+								actionListener="#{alunoController.remover}"
+								update="@form formDataTable" process="@this pgDados">
+								<p:confirm header="Confirmação" 
+											message="Deseja realmente excluir?" 
+											icon="ui-icon-alert" />
+							</p:commandButton>
 
-							<p:column headerText="Nome">
-								<p:commandLink value="#{aluno.nome}"
-									oncomplete="PF('dlg').hide();">
-									<f:ajax render="formDados" execute="@this" />
-									<f:setPropertyActionListener value="#{aluno}"
-										target="#{alunoController.entity}" />
-								</p:commandLink>
-							</p:column>
+							<p:commandButton value="Limpar" styleClass="btn-primary btn-block"
+								actionListener="#{alunoController.limpar}"
+								update="@form formDataTable" process="@this" />
+						</p:panelGrid>
+		
 
-							<p:column headerText="CPF">
-								<h:outputText value="#{aluno.cpf}" />
-							</p:column>
-
-							<p:column headerText="Data de Nascimento">
-								<h:outputText value="#{aluno.dataNascimento}">
-									<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" locale="pt_BR" />
-								</h:outputText>
-							</p:column>
-
-							<p:column headerText="Sexo">
-								<h:outputText value="#{aluno.sexo}" />
-							</p:column>
-
-							<p:column headerText="Email">
-								<h:outputText value="#{aluno.email}" />
-							</p:column>
-
-							<p:column headerText="Endereco">
-								<p:commandLink for="itEndereco" value="	Visualizar"
-									onclick="PF('dlgEndereco').show();" process="@this"
-									style="color:blue; text-decoration: underline;" />
-
-							</p:column>
-						</p:dataTable>
+		
 					</h:form>
+		
 				</p:panel>
-			</p:dialog>
-
-			<p:dialog header="Modal Dialog" widgetVar="dlgEndereco" modal="true"
-				height="400">
-
-				<p:dataTable styleClass="box-primary" var="aluno"
-					value="#{alunoController.listaAluno}">
-					<f:facet name="header">
-						<h:outputText value="Endereco" />
-					</f:facet>
-					<p:column headerText="CEP">
-						<h:outputText value="#{aluno.cep}" />
-					</p:column>
-
-
-					<p:column headerText="Logradouro">
-						<h:outputText value="#{aluno.logradouro}" />
-					</p:column>
-
-					<p:column headerText="Numero">
-						<h:outputText value="#{aluno.numero}" />
-
-					</p:column>
-
-					<p:column headerText="Complemento">
-						<h:outputText value="#{aluno.complemento}" />
-					</p:column>
-
-					<p:column headerText="Cidade">
-						<h:outputText value="#{aluno.cidade}" />
-					</p:column>
-
-					<p:column headerText="Estado">
-						<h:outputText value="#{aluno.estado}" />
-					</p:column>
-
-				</p:dataTable>
-
-
-
-			</p:dialog>
-
-
-		</div>
-	</ui:define>
-	<ui:define name="rodape">
-		<h:outputText value="2018 - WEBGYM - Todos os direitos reservados." />
-	</ui:define>
-
-</ui:composition>
-
+				<p:spacer />
+				
+				<p:dialog header="Pesquisa de Pessoas" appendTo="@(body)" widgetVar="dlg" modal="true" height="400" closeOnEscape="true"  >
+					<h:form>
+						<p:inputText id="itPesquisa" value="#{pessoaFisicaController.pesquisa}"/>
+						<p:commandButton value="Pesquisar" 
+							actionListener="#{pessoaFisicaController.pesquisar}"
+							process="@this itPesquisa" 
+							update="formDataTable"/>
+					</h:form>
+					<p:panel styleClass="card no-border" toggleable="true"
+						toggleSpeed="300">
+						<h:form id="formDataTable">
+							<p:dataTable styleClass="box-primary" var="pessoa"
+								value="#{pessoaFisicaController.listaPessoa}">
+								<f:facet name="header">
+									<h:outputText value="Lista de Pessoas Cadastradas" />
+								</f:facet>
+								<p:column headerText="Id">
+									<h:outputText value="#{pessoa.id}" />
+								</p:column>
+			
+								<p:column headerText="Nome">
+									<p:commandLink value="#{pessoa.nome}" 
+											oncomplete="PF('dlg').hide();">
+										<f:ajax render="formDados" execute="@this"  update="itNome"/>
+										<f:setPropertyActionListener value="#{pessoa}"
+											target="#{alunoController.entity.pessoaFisica}" />
+											
+											
+									</p:commandLink>
+								</p:column>
+			
+								<p:column headerText="Data de Nascimento">
+									<h:outputText value="#{pessoa.dataNascimento}">
+										<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" locale="pt_BR" />
+									</h:outputText>
+								</p:column>
+			
+								<p:column headerText="Endereço">
+									<h:outputText value="#{pessoa.endereco}" />
+								</p:column>
+			
+								<p:column headerText="Email">
+									<h:outputText value="#{pessoa.email}" />
+								</p:column>
+							</p:dataTable>
+						</h:form>
+					</p:panel>
+				</p:dialog>				
+				
+			</div>
+		
+		</ui:define>
+	</ui:composition>	
 </html>

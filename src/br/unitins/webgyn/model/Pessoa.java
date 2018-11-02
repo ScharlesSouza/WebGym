@@ -1,40 +1,36 @@
 package br.unitins.webgyn.model;
 
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa extends DefaultEntity<Pessoa> {
 
-	private static final long serialVersionUID = 842608579949032521L;
+	private static final long serialVersionUID = 8722334069992408682L;
 
-
-	
-	@Transient
-	private Date dataNascimento;
-	
 	private String nome;
-	private String endereco;
 	private String email;
 	
-	public Pessoa(){
-		
-	}
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="pessoa", orphanRemoval=true)
+	private List<Telefone> listaTelefone;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="idendereco",unique=true)
+	private Endereco endereco;
 
-	public Pessoa(String nome, String endereco, String email) {
-		super();
-		this.nome = nome;
-		this.endereco = endereco;
-		this.email = email;
-	}
-
-
+	
+	
 	public String getNome() {
 		return nome;
 	}
@@ -43,13 +39,6 @@ public class Pessoa extends DefaultEntity<Pessoa> {
 		this.nome = nome;
 	}
 
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
 
 	public String getEmail() {
 		return email;
@@ -58,15 +47,21 @@ public class Pessoa extends DefaultEntity<Pessoa> {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public List<Telefone> getListaTelefone() {
+		return listaTelefone;
+	}
+
+	public void setListaTelefone(List<Telefone> listaTelefone) {
+		this.listaTelefone = listaTelefone;
+	}
 	
-	public Date getDataNascimento() {
-		return dataNascimento;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
-
 	
 }

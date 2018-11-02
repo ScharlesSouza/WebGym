@@ -12,9 +12,7 @@ public class Equipamento extends DefaultEntity<Equipamento> {
 
 
 	private String nome;
-
 	private String descricao;
-
 	private String marca;
 
 	public Equipamento() {
@@ -26,7 +24,6 @@ public class Equipamento extends DefaultEntity<Equipamento> {
 		this.descricao = descricao;
 		this.marca = marca;
 	}
-	
 	
 
 	public String getNome() {
