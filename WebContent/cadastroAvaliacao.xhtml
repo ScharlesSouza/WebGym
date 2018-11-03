@@ -33,22 +33,40 @@
 							styleClass="ui-fluid card">
 
 							<h:panelGroup>
-								<p:commandLink for="itNome" value="Aluno:"
-									onclick="PF('dlg').show();" process="@this"
-									style="color:blue; text-decoration: underline;" />
-
-
-								<p:selectOneMenu id="nome"
-									value="#{alynoController.entity.nome}">
-									<f:selectItem itemlabel="Selecione o aluno" />
-									<f:selectItems value="#{alunoController.listaAluno}"
-										var="aluno" itemLabel="#{aluno}" itemValue="#{aluno}" />
-
-								</p:selectOneMenu>
-
+									
+									<p:commandLink for="itAluno" 
+											value="Aluno:" 
+											onclick="PF('dlg').show();"
+											process="@this"
+											style="color:blue; text-decoration: underline;">
+											
+											<p:ajax event="dialogReturn" 
+											        listener="#{alunoController.alunoSelecionado}" 
+											        update="itAluno" />
+											</p:commandLink>
+											
+									<p:inputText id="itAluno" value="#{avaliacaoController.entity.aluno.nome}" required="true">
+										<p:focus for="itAluno" />								
+									</p:inputText>
+								</h:panelGroup>
 								
-							</h:panelGroup>
-
+							<h:panelGroup>
+									<p:commandLink for="itInstrutor" 
+											value="Instrutor:" 
+											onclick="PF('dlg2').show();"
+											process="@this"
+											style="color:blue; text-decoration: underline;">
+											
+											<p:ajax event="dialogReturn" 
+											        listener="#{avaliacaoController.instrutorSelecionado}" 
+											        update="itInstrutor" />
+											</p:commandLink>
+											
+									<p:inputText id="itInstrutor" value="#{avaliacaoController.entity.instrutor.nome}" required="true">
+										<p:focus for="itInstrutor" />								
+									</p:inputText>
+								</h:panelGroup>
+								
 							<h:panelGroup>
 								<p:outputLabel value="Data de Avaliaçao:" />
 								<p:calendar value="#{avaliacaoController.entity.dataAvaliacao}"
@@ -121,54 +139,107 @@
 
 			</p:panel>
 			<p:spacer />
-			<p:dialog header="Modal Dialog" widgetVar="dlg" modal="true"
-				height="400">
-				<h:form>
-					<p:inputText id="itPesquisa"
-						value="#{avaliacaoController.pesquisa}" />
-					<p:commandButton value="Pesquisar"
-						actionListener="#{avaliacaoController.pesquisar}"
-						process="@this itPesquisa" update="formDataTable" />
-				</h:form>
-				<p:panel styleClass="card no-border" toggleable="true"
-					toggleSpeed="300">
-					<h:form id="formDataTable">
-						<p:dataTable styleClass="box-primary" var="avaliacao"
-							value="#{avaliacaoController.listaAvaliacao}">
-							<f:facet name="header">
-								<h:outputText value="Lista de avaliacoes Cadastradas" />
-							</f:facet>
-							<p:column headerText="Id">
-								<h:outputText value="#{avaliacao.id}" />
-							</p:column>
-
-
-
-							<p:column headerText="Data de Avaliacao">
-								<h:outputText value="#{avaliacao.dataAvaliacao}">
-									<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" locale="pt_BR" />
-								</h:outputText>
-							</p:column>
-
-							<p:column headerText="Altura">
-								<p:commandLink value="#{avaliacao.altura}"
-									oncomplete="PF('dlg').hide();">
-									<f:ajax render="formDados" execute="@this" />
-									<f:setPropertyActionListener value="#{avaliacao}"
-										target="#{avaliacaoController.entity}" />
-								</p:commandLink>
-							</p:column>
-							<p:column headerText="Peso">
-								<h:outputText value="#{avaliacao.peso}" />
-							</p:column>
-
-							<p:column headerText="Gordura">
-								<h:outputText value="#{avaliacao.gordura}" />
-							</p:column>
-						</p:dataTable>
+			<p:dialog header="Pesquisa de Alunos" appendTo="@(body)" widgetVar="dlg" modal="true" height="400" closeOnEscape="true"  >
+					<h:form>
+						<p:inputText id="itPesquisa" value="#{pessoaFisicaController.pesquisa}"/>
+						<p:commandButton value="Pesquisar" 
+							actionListener="#{pessoaFisicaController.pesquisar}"
+							process="@this itPesquisa" 
+							update="formDataTable"/>
 					</h:form>
-				</p:panel>
-			</p:dialog>
+					<p:panel styleClass="card no-border" toggleable="true"
+						toggleSpeed="300">
+						<h:form id="formDataTable">
+							<p:dataTable styleClass="box-primary" var="pessoa"
+								value="#{pessoaFisicaController.listaPessoa}">
+								<f:facet name="header">
+									<h:outputText value="Lista de Pessoas Cadastradas" />
+								</f:facet>
+								<p:column headerText="Id">
+									<h:outputText value="#{pessoa.id}" />
+								</p:column>
+			
+								<p:column headerText="Nome">
+									<p:commandLink value="#{pessoa.nome}" 
+											oncomplete="PF('dlg').hide();">
+										<f:ajax render="formDados" execute="@this"  update="itAluno"/>
+										<f:setPropertyActionListener value="#{pessoa}"
+											target="#{avaliacaoController.entity.aluno}" />
+											
+											
+									</p:commandLink>
+								</p:column>
+			
+								<p:column headerText="Data de Nascimento">
+									<h:outputText value="#{pessoa.dataNascimento}">
+										<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" locale="pt_BR" />
+									</h:outputText>
+								</p:column>
+			
+								<p:column headerText="Endereço">
+									<h:outputText value="#{pessoa.endereco}" />
+								</p:column>
+			
+								<p:column headerText="Email">
+									<h:outputText value="#{pessoa.email}" />
+								</p:column>
+							</p:dataTable>
+						</h:form>
+					</p:panel>
+				</p:dialog>		
+				
+				
+				
+				
+				<p:dialog header="Pesquisa de Intrutores" appendTo="@(body)" widgetVar="dlg2" modal="true" height="400" closeOnEscape="true"  >
+					<h:form>
+						<p:inputText id="itPesquisa2" value="#{pessoaFisicaController.pesquisa}"/>
+						<p:commandButton value="Pesquisar" 
+							actionListener="#{pessoaFisicaController.pesquisar}"
+							process="@this itPesquisa2" 
+							update="formDataTable2"/>
+					</h:form>
+					<p:panel styleClass="card no-border" toggleable="true"
+						toggleSpeed="300">
+						<h:form id="formDataTable2">
+							<p:dataTable styleClass="box-primary" var="pessoa"
+								value="#{pessoaFisicaController.listaPessoa}">
+								<f:facet name="header">
+									<h:outputText value="Lista de Pessoas Cadastradas" />
+								</f:facet>
+								<p:column headerText="Id">
+									<h:outputText value="#{pessoa.id}" />
+								</p:column>
+			
+								<p:column headerText="Nome">
+									<p:commandLink value="#{pessoa.nome}" 
+											oncomplete="PF('dlg2').hide();">
+										<f:ajax render="formDados" execute="@this"  update="itInstrutor"/>
+										<f:setPropertyActionListener value="#{pessoa}"
+											target="#{avaliacaoController.entity.instrutor}" />
+											
+											
+									</p:commandLink>
+								</p:column>
+			
+								<p:column headerText="Data de Nascimento">
+									<h:outputText value="#{pessoa.dataNascimento}">
+										<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" locale="pt_BR" />
+									</h:outputText>
+								</p:column>
+			
+								<p:column headerText="Endereço">
+									<h:outputText value="#{pessoa.endereco}" />
+								</p:column>
+			
+								<p:column headerText="Email">
+									<h:outputText value="#{pessoa.email}" />
+								</p:column>
+							</p:dataTable>
+						</h:form>
+					</p:panel>
+				</p:dialog>			
+				
 		</div>
 	</ui:define>
 	<ui:define name="rodape">

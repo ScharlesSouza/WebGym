@@ -57,6 +57,7 @@ public class AlunoController extends Controller<Aluno> {
 		
 	}
 	
+	
 	public List<Aluno> getListaAluno() {
 		if (listaAluno == null)
 			listaAluno = new ArrayList<Aluno>();

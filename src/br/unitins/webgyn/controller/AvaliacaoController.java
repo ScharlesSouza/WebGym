@@ -6,8 +6,11 @@ import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.event.SelectEvent;
+
 import br.unitins.webgyn.model.Aluno;
 import br.unitins.webgyn.model.Avaliacao;
+import br.unitins.webgyn.model.PessoaFisica;
 import br.unitins.webgyn.repository.AlunoRepository;
 import br.unitins.webgyn.repository.AvaliacaoRepository;
 
@@ -52,6 +55,17 @@ public class AvaliacaoController extends Controller<Avaliacao> {
 		
 		return listaAvaliacao;
 	}
+	
+	public void alunoSelecionado(SelectEvent event) {
+        PessoaFisica aluno = (PessoaFisica) event.getObject();
+        getEntity().setAluno(aluno);
+       
+    }
+	public void instrutorSelecionado(SelectEvent event) {
+        PessoaFisica instrutor = (PessoaFisica) event.getObject();
+        getEntity().setAluno(instrutor);
+       
+    }
 
 
 	public String getPesquisa() {

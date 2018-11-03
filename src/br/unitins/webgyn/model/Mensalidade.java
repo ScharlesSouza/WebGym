@@ -12,14 +12,24 @@ public class Mensalidade extends  DefaultEntity<Mensalidade> {
 	 */
 	private static final long serialVersionUID = -5870994204215263051L;
 
-	private Aluno aluno;
+	
 	private String mes;
 	private String ano;
 	private double valor;
 	private String status;
 	private Date dataPagamento;
+	private PessoaFisica aluno;
 
 	
+	
+	public PessoaFisica getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(PessoaFisica aluno) {
+		this.aluno = aluno;
+	}
+
 	public String getMes() {
 		return mes;
 	}
@@ -60,13 +70,6 @@ public class Mensalidade extends  DefaultEntity<Mensalidade> {
 		this.dataPagamento = dataPagamento;
 	}
 
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-	}
 	
 	
 

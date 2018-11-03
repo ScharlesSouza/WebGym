@@ -2,7 +2,15 @@ package br.unitins.webgyn.model;
 
 import java.util.Date;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.primefaces.event.SelectEvent;
 
 @Entity
 public class Avaliacao extends DefaultEntity<Avaliacao> {
@@ -17,6 +25,12 @@ public class Avaliacao extends DefaultEntity<Avaliacao> {
 	private Double gordura;
 	private String anotacao;
 	
+
+	
+	private PessoaFisica aluno;
+	private PessoaFisica instrutor;
+	
+
 	public Avaliacao(){
 		
 	}
@@ -30,6 +44,8 @@ public class Avaliacao extends DefaultEntity<Avaliacao> {
 		this.gordura = gordura;
 		this.anotacao = anotacao;
 	}
+	
+	
 
 
 	public Date getDataAvaliacao() {
@@ -62,7 +78,29 @@ public class Avaliacao extends DefaultEntity<Avaliacao> {
 	public void setAnotacao(String anotacao) {
 		this.anotacao = anotacao;
 	}
+
+
+	public PessoaFisica getAluno() {
+		return aluno;
+	}
+
+
+	public void setAluno(PessoaFisica aluno) {
+		this.aluno = aluno;
+	}
+
+
+	public PessoaFisica getInstrutor() {
+		return instrutor;
+	}
+
+
+	public void setInstrutor(PessoaFisica instrutor) {
+		this.instrutor = instrutor;
+	}
 	
+	
+
 	
 
 }
