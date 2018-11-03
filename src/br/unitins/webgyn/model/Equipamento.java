@@ -17,14 +17,7 @@ public class Equipamento extends DefaultEntity<Equipamento> {
 
 	public Equipamento() {
 		
-	}
-	public Equipamento(String nome, String descricao, String marca) {
-		super();
-		this.nome = nome;
-		this.descricao = descricao;
-		this.marca = marca;
-	}
-	
+	}	
 
 	public String getNome() {
 		return nome;

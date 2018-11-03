@@ -1,8 +1,12 @@
 package br.unitins.webgyn.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+@Entity
 public class Exercicio  extends DefaultEntity<Exercicio>{
 
 	/**
@@ -12,13 +16,18 @@ public class Exercicio  extends DefaultEntity<Exercicio>{
 	
 	private String nome;
 	private Integer repeticao;
-	private Integer intervalo;
+	private String intervalo;
 	private Integer sessoes;
 	private Double carga;
 	
 	@ManyToOne
 	@JoinColumn(name="idTreino")
 	private Treino treino;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="idequipamento",unique=true)
+	private Equipamento equipamento;
+	
 	
 	public String getNome() {
 		return nome;
@@ -32,10 +41,11 @@ public class Exercicio  extends DefaultEntity<Exercicio>{
 	public void setRepeticao(Integer repeticao) {
 		this.repeticao = repeticao;
 	}
-	public Integer getIntervalo() {
+	
+	public String getIntervalo() {
 		return intervalo;
 	}
-	public void setIntervalo(Integer intervalo) {
+	public void setIntervalo(String intervalo) {
 		this.intervalo = intervalo;
 	}
 	public Integer getSessoes() {
@@ -49,6 +59,18 @@ public class Exercicio  extends DefaultEntity<Exercicio>{
 	}
 	public void setCarga(Double carga) {
 		this.carga = carga;
+	}
+	public Treino getTreino() {
+		return treino;
+	}
+	public void setTreino(Treino treino) {
+		this.treino = treino;
+	}
+	public Equipamento getEquipamento() {
+		return equipamento;
+	}
+	public void setEquipamento(Equipamento equipamento) {
+		this.equipamento = equipamento;
 	}
 	
 	

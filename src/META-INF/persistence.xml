@@ -9,11 +9,13 @@
 		<class>br.unitins.webgyn.model.DefaultEntity</class>
 		<class>br.unitins.webgyn.model.Endereco</class>
 		<class>br.unitins.webgyn.model.Equipamento</class>
+		<class>br.unitins.webgyn.model.Exercicio</class>
 		<class>br.unitins.webgyn.model.Instrutor</class>
 		<class>br.unitins.webgyn.model.Mensalidade</class>
 		<class>br.unitins.webgyn.model.Pessoa</class>
 		<class>br.unitins.webgyn.model.PessoaFisica</class>
 		<class>br.unitins.webgyn.model.Telefone</class>
+		<class>br.unitins.webgyn.model.Treino</class>
 	
 	
 	<properties>

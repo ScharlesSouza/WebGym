@@ -2,9 +2,14 @@ package br.unitins.webgyn.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.event.SelectEvent;
+
+import br.unitins.webgyn.model.Equipamento;
 import br.unitins.webgyn.model.Exercicio;
 import br.unitins.webgyn.repository.ExercicioRepository;
 
@@ -20,6 +25,8 @@ public class ExercicioController extends Controller<Exercicio> {
 	private String pesquisa;
 
 	private List<Exercicio> listaExercicio = null;
+	
+	private Equipamento equipamento;
 
 	@Override
 	public void limpar() {
@@ -52,6 +59,22 @@ public class ExercicioController extends Controller<Exercicio> {
 
 	public void setPesquisa(String pesquisa) {
 		this.pesquisa = pesquisa;
+	
 	}
+	
+	
+	public Equipamento getEquipamento() {
+		return equipamento;
+	}
+
+	public void setEquipamento(Equipamento equipamento) {
+		this.equipamento = equipamento;
+	}
+
+	public void EquipamentoSelecionado(SelectEvent event) {
+        Equipamento equipamento= (Equipamento) event.getObject();
+        getEntity().setEquipamento(equipamento);
+        
+    }
 }
 
