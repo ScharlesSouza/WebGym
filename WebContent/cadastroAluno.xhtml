@@ -51,6 +51,18 @@
 									<p:outputLabel value="Matricula:" />
 									<p:inputText id="itMatricula" value="#{alunoController.entity.matricula}" />
 								</h:panelGroup>
+								
+								
+								<h:panelGroup>
+								<p:outputLabel id="itForma" value="Forma de Pagamento:" />
+								<p:selectOneMenu value="#{alunoController.formaPagamento}">
+									<f:selectItem itemLabel="Selecione ...." itemValue="" />
+									<f:selectItems value="#{alunoController.vetorFormaPagamento}"
+										var="formaPagamento" itemLabel="#{formaPagamento.label}" itemValue="#{formaPagamento}" />
+								</p:selectOneMenu>
+							</h:panelGroup>
+								
+								
 							<p:spacer />
 							</p:panelGrid>
 						</div>
@@ -106,7 +118,7 @@
 							<p:dataTable styleClass="box-primary" var="pessoa"
 								value="#{pessoaFisicaController.listaPessoa}">
 								<f:facet name="header">
-									<h:outputText value="Lista de Pessoas Cadastradas" />
+									<h:outputText value="Lista de Aluno" />
 								</f:facet>
 								<p:column headerText="Id">
 									<h:outputText value="#{pessoa.id}" />
@@ -115,26 +127,20 @@
 								<p:column headerText="Nome">
 									<p:commandLink value="#{pessoa.nome}" 
 											oncomplete="PF('dlg').hide();">
-										<f:ajax render="formDados" execute="@this"  update="itNome itMatricula"/>
+										<f:ajax render="formDados" execute="@this" update="itNome itMatricula"/>
 										<f:setPropertyActionListener value="#{pessoa}"
-											target="#{alunoController.entity.pessoaFisica}" />
-											
+											target="#{alunoController.entity.pessoaFisica}" />		
 											
 									</p:commandLink>
 								</p:column>
 			
-								<p:column headerText="Data de Nascimento">
-									<h:outputText value="#{pessoa.dataNascimento}">
-										<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss" locale="pt_BR" />
-									</h:outputText>
+			
+								<p:column headerText="Matricula">
+									<h:outputText value="#{aluno.matricula}" />
 								</p:column>
 			
-								<p:column headerText="Endereço">
-									<h:outputText value="#{pessoa.endereco}" />
-								</p:column>
-			
-								<p:column headerText="Email">
-									<h:outputText value="#{pessoa.email}" />
+								<p:column headerText="Forma de Pagamento">
+									<h:outputText value="#{aluno.formaPagamento}" />
 								</p:column>
 							</p:dataTable>
 						</h:form>

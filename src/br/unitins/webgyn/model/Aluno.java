@@ -18,7 +18,8 @@ public class Aluno extends DefaultEntity<Aluno> {
 	private PessoaFisica pessoaFisica;
 	
 	private String matricula;
-
+	private String formaPagamento;
+	
 
 
 	public PessoaFisica getPessoaFisica() {
@@ -38,5 +39,17 @@ public class Aluno extends DefaultEntity<Aluno> {
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
+
+
+	public String getFormaPagamento() {
+		return formaPagamento;
+	}
+
+
+	public void setFormaPagamento(String formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
+	
+	
 
 }
