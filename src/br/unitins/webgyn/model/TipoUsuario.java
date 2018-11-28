@@ -9,6 +9,8 @@ public enum TipoUsuario {
 			Arrays.asList("cadastropessoa4.xhtml", "cadastrocidade.xhtml", "listagemcidade.xhtml", "listagemusuario.xhtml", "cadastrousuario.xhtml")),
 	USUARIO_COMUM(1, "Usuario Comum", Arrays.asList("cadastropessoa4.xhtml", "listagemcidade.xhtml"));
 	
+	
+	//
 	private int id;
 	private String label;
 	private List<String> pages;
