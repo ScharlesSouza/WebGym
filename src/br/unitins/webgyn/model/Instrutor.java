@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import br.unitins.webgyn.model.TipoUsuario;
+
 
 @Entity
 public class Instrutor extends DefaultEntity<Instrutor> {
@@ -20,6 +22,7 @@ public class Instrutor extends DefaultEntity<Instrutor> {
 
 	private String senha;
 	private String login;
+	private TipoUsuario tipoUsuario;
 	
 	
 	public PessoaFisica getPessoaFisica() {
@@ -50,7 +53,13 @@ public class Instrutor extends DefaultEntity<Instrutor> {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
 
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
 
 	
 

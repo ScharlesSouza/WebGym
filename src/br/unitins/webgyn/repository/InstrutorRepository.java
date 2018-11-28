@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import br.unitins.webgyn.application.Util;
 import br.unitins.webgyn.model.Instrutor;
 
 
@@ -41,6 +42,29 @@ public class InstrutorRepository extends Repository<Instrutor>{
 		
 		
 		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Instrutor getInstrutor(String login, String senha) {
+		
+		Query query = getEntityManager().
+				createQuery("Select "
+						  + "  p "
+						  + "From "
+						  + "  Instrutor p "
+						  + "WHERE "
+						  + "  p.login = :login AND "
+						  + "  p.senha = :senha ");
+		
+		query.setParameter("login", login);
+		query.setParameter("senha", Util.encrypt(senha));
+		
+		List<Instrutor> lista = query.getResultList();
+		
+		if (lista == null || lista.isEmpty())
+			return null;
+		
+		return lista.get(0);
 	}
 
 }
