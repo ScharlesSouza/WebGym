@@ -45,6 +45,12 @@
 								</h:panelGroup>
 								
 								<h:panelGroup>
+									<p:outputLabel value="Tipo de Usuário:"/>
+									<p:selectOneMenu value="#{instrutorController.entity.tipoUsuario}">
+										<f:selectItem itemLabel="Selecione ...." itemValue=""/>
+										<f:selectItems value="#{instrutorController.vetorTipoUsuario}"
+												var="tipo" itemLabel="#{tipo.label}" itemValue="#{tipo}"/>
+									</p:selectOneMenu>
 								</h:panelGroup>
 								
 		
@@ -56,10 +62,9 @@
 								</h:panelGroup>
 		
 								<h:panelGroup>
-									<p:outputLabel value="Senha:" />
-									
-									<p:inputText value="#{instrutorController.entity.senha}" />
-							
+									<p:outputLabel value="Senha:" />									
+									<p:password value="#{instrutorController.entity.senha}" required="true"
+										requiredMessage="A senha deve ser informada"/>
 							</h:panelGroup>		
 							<p:spacer />
 							</p:panelGrid>

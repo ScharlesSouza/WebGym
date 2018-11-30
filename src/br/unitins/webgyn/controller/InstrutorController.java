@@ -10,8 +10,10 @@ import javax.inject.Named;
 
 import org.primefaces.event.SelectEvent;
 
+import br.unitins.webgyn.application.Util;
 import br.unitins.webgyn.model.Instrutor;
 import br.unitins.webgyn.model.PessoaFisica;
+import br.unitins.webgyn.model.TipoUsuario;
 import br.unitins.webgyn.repository.InstrutorRepository;
 
 @Named
@@ -50,6 +52,22 @@ public class InstrutorController extends Controller<Instrutor> {
 		listaInstrutor = null;
 		
 	}
+	@Override
+	public Instrutor incluir() {
+		String senhaEncriptada = Util.encrypt(getEntity().getSenha());
+		getEntity().setSenha(senhaEncriptada);
+		
+		return super.incluir();
+	}
+	
+	@Override
+	public Instrutor alterar() {
+		String senhaEncriptada = Util.encrypt(getEntity().getSenha());
+		getEntity().setSenha(senhaEncriptada);
+		
+		return super.alterar();
+	}
+	
 	
 	public void pesquisar() {
 		InstrutorRepository repository = new InstrutorRepository(getEntityManager());
@@ -79,6 +97,15 @@ public class InstrutorController extends Controller<Instrutor> {
 
 	public void setPessoaFisica(PessoaFisica pessoaFisica) {
 		this.pessoaFisica = pessoaFisica;
+	}
+	
+	 public void usuarioSelecionado(SelectEvent event) {
+	        Instrutor usuario = (Instrutor) event.getObject();
+	        setEntity(usuario);
+	    }
+	
+	public TipoUsuario[] getVetorTipoUsuario() {
+		return TipoUsuario.values();
 	}
 
 }
