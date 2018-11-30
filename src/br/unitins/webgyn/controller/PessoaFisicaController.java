@@ -11,12 +11,13 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
-import br.unitins.webgyn.repository.CidadeRepository;
 import br.unitins.webgyn.model.Cep;
 import br.unitins.webgyn.model.Cidade;
 import br.unitins.webgyn.model.Endereco;
 import br.unitins.webgyn.model.PessoaFisica;
+import br.unitins.webgyn.model.Sexo;
 import br.unitins.webgyn.model.Telefone;
+import br.unitins.webgyn.repository.CidadeRepository;
 import br.unitins.webgyn.repository.PessoaRepository;
 
 @Named
@@ -125,6 +126,10 @@ public class PessoaFisicaController extends Controller<PessoaFisica>  {
 			listaCidade = repo.getCidades("");
 		}
 		return listaCidade;
+	}
+	
+	public Sexo[] getVetorSexo() {
+		return Sexo.values();
 	}
 
 	

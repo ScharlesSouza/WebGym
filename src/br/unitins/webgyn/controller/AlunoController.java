@@ -11,7 +11,9 @@ import javax.inject.Named;
 import org.primefaces.event.SelectEvent;
 
 import br.unitins.webgyn.model.Aluno;
+import br.unitins.webgyn.model.FormaPagamento;
 import br.unitins.webgyn.model.PessoaFisica;
+import br.unitins.webgyn.model.Sexo;
 import br.unitins.webgyn.repository.AlunoRepository;
 
 @Named
@@ -25,6 +27,7 @@ public class AlunoController extends Controller<Aluno> {
 	
 	private String pesquisa;
 	private PessoaFisica pessoaFisica;
+	private FormaPagamento formaPagamento;
 	
 	private List<Aluno> listaAluno = null;
 	
@@ -57,7 +60,19 @@ public class AlunoController extends Controller<Aluno> {
 		
 	}
 	
+	public FormaPagamento[] getVetorFormaPagamento() {
+		return FormaPagamento.values();
+	}
 	
+	
+	public FormaPagamento getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
+
 	public List<Aluno> getListaAluno() {
 		if (listaAluno == null)
 			listaAluno = new ArrayList<Aluno>();

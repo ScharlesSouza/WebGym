@@ -1,14 +1,15 @@
 package br.unitins.webgyn.model;
 
-public enum Sexo {
+public enum FormaPagamento {
 	
-	MASCULINO(0, "Masculino"),
-	FEMININO(1, "Feminino");
+	MENSAL(0, "Mensal"),
+	TRIMESTRAL(1, "Trimestral"),
+	SEMESTRAL(2, "Semestral");
 	
 	private int id;
 	private String label;
 	
-	private Sexo(int id, String label) {
+	private FormaPagamento(int id, String label) {
 		this.id = id;
 		this.label = label;
 	}
