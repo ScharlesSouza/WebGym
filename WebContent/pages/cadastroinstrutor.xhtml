@@ -58,7 +58,8 @@
 								<h:panelGroup>
 									<p:outputLabel value="Senha:" />
 									
-									<p:inputText value="#{instrutorController.entity.senha}" />
+									<p:inputText value="#{instrutorController.entity.senha}" type="password" required="true" autocomplete="off"
+	                                     requiredMessage="A senha é obrigatória." />
 							
 							</h:panelGroup>		
 							<p:spacer />

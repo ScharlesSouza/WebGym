@@ -60,7 +60,7 @@
 									<h:panelGroup>
 									
 									<p:outputLabel value="CEP:" />
-									<p:inputText value="#{pessoaFisicaController.entity.endereco.cep.cep}" />
+									<p:inputText value="#{pessoaFisicaController.entity.endereco.cep.cep}" maxlength="8" />
 									
 									<p:outputLabel value="Bairro:" />
 									<p:inputText value="#{pessoaFisicaController.entity.endereco.cep.bairro}" />
@@ -103,12 +103,12 @@
 										
 										<h:panelGroup>
 											<p:outputLabel value="DDD:" />
-											<p:inputText value="#{pessoaFisicaController.telefone.codigoArea}"  />
+											<p:inputText value="#{pessoaFisicaController.telefone.codigoArea}" maxlength="2" />
 										</h:panelGroup>
 											
 										<h:panelGroup>			
 												<p:outputLabel value="Número:" />
-												<p:inputText value="#{pessoaFisicaController.telefone.numero}" />
+												<p:inputText value="#{pessoaFisicaController.telefone.numero}" maxlength="9"/>
 										</h:panelGroup>	
 											
 									</h:panelGrid>
