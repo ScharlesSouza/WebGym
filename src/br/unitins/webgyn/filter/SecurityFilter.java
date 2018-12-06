@@ -35,7 +35,7 @@ public class SecurityFilter implements Filter{
 			usuario = (Instrutor) session.getAttribute("usuarioLogado");
 													  
 		if (usuario == null) {
-			((HttpServletResponse) response).sendRedirect("/webgym/login.xhtml"); 
+			((HttpServletResponse) response).sendRedirect("/WebGym/login.xhtml"); 
 		} else {
 			String endereco = servletRequest.getRequestURI();
 			for (String pagina : usuario.getTipoUsuario().getPages()) {
@@ -45,7 +45,7 @@ public class SecurityFilter implements Filter{
 				}
 			}
 			
-			((HttpServletResponse) response).sendRedirect("/webgym/sempermissao.xhtml");
+			((HttpServletResponse) response).sendRedirect("/WebGym/sempermissao.xhtml");
 		}
 	}
 	
