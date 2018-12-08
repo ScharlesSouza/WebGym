@@ -1,11 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:adm="http://github.com/adminfaces"
-      xmlns:p="http://primefaces.org/ui">
-
-    <h:head>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+	<ui:composition template="/template.xhtml">
+		<ui:define name="conteudo">
+			 <h:head>
   		<title>Nao autorizado</title>
     </h:head>
 
@@ -14,4 +16,6 @@
         
 	<H1>Pagina nao Autorizada.</H1>
 </h:body>
+		</ui:define>
+	</ui:composition>	
 </html>

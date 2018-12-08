@@ -1,6 +1,8 @@
 package br.unitins.webgyn.model;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Equipamento extends DefaultEntity<Equipamento> {
@@ -14,6 +16,8 @@ public class Equipamento extends DefaultEntity<Equipamento> {
 	private String nome;
 	private String descricao;
 	private String marca;
+	
+	
 
 	public Equipamento() {
 		

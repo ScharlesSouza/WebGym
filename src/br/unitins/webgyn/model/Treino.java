@@ -2,11 +2,12 @@ package br.unitins.webgyn.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+
 
 
 @Entity
@@ -17,16 +18,15 @@ public class Treino extends DefaultEntity<Treino> {
 	 */
 	private static final long serialVersionUID = 5765753738739180211L;
 	
-	private PessoaFisica aluno;
-	
-	@ManyToOne
-	@JoinColumn(name = "idExercicio")
-	private Exercicio exercicio;
+
 	
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="treino", orphanRemoval=true)
+
+	@ManyToMany
+	@JoinTable(name="Treinoexercicio", joinColumns= @JoinColumn(name="idtreino"), inverseJoinColumns =@JoinColumn(name="idexercicio"))
 	private List<Exercicio> listaExercicio;
-	
+	@JoinTable(name="Treinoaluno", joinColumns= @JoinColumn(name="idtreino"), inverseJoinColumns =@JoinColumn(name="idaluno"))
+	private PessoaFisica aluno;
 	
 	private String grupoMuscular;
 
@@ -55,14 +55,7 @@ public class Treino extends DefaultEntity<Treino> {
 		this.listaExercicio = listaExercicio;
 	}
 
-	public Exercicio getExercicio() {
-		return exercicio;
-	}
-
-	public void setExercicio(Exercicio exercicio) {
-		this.exercicio = exercicio;
-	}
-
+	
 	
 	
 	

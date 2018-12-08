@@ -24,8 +24,8 @@ public class Exercicio  extends DefaultEntity<Exercicio>{
 	@JoinColumn(name="idTreino")
 	private Treino treino;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="idequipamento",unique=true)
+	@ManyToOne
+	@JoinColumn(name="idequipamento")
 	private Equipamento equipamento;
 	
 	
