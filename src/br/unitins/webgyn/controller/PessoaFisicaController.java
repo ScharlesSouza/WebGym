@@ -19,10 +19,18 @@ import br.unitins.webgyn.model.Sexo;
 import br.unitins.webgyn.model.Telefone;
 import br.unitins.webgyn.repository.CidadeRepository;
 import br.unitins.webgyn.repository.PessoaRepository;
+import br.unitins.webgyn.validation.CidadeValidation;
+import br.unitins.webgyn.validation.PessoafisicaValidation;
+import br.unitins.webgyn.validation.Validation;
 
 @Named
 @ViewScoped
 public class PessoaFisicaController extends Controller<PessoaFisica>  {
+
+	public PessoaFisicaController() {
+		super(new PessoafisicaValidation() );
+		// TODO Auto-generated constructor stub
+	}
 
 	private static final long serialVersionUID = -4270221378549569000L;
 

@@ -15,10 +15,17 @@ import br.unitins.webgyn.model.Instrutor;
 import br.unitins.webgyn.model.PessoaFisica;
 import br.unitins.webgyn.model.TipoUsuario;
 import br.unitins.webgyn.repository.InstrutorRepository;
+import br.unitins.webgyn.validation.InstrutorValidation;
+import br.unitins.webgyn.validation.Validation;
 
 @Named
 @ViewScoped
 public class InstrutorController extends Controller<Instrutor> {
+
+	public InstrutorController() {
+		super(new InstrutorValidation());
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * 

@@ -13,11 +13,17 @@ import br.unitins.webgyn.model.Avaliacao;
 import br.unitins.webgyn.model.PessoaFisica;
 import br.unitins.webgyn.repository.AlunoRepository;
 import br.unitins.webgyn.repository.AvaliacaoRepository;
+import br.unitins.webgyn.validation.Validation;
 
 
 @Named
 @ViewScoped
 public class AvaliacaoController extends Controller<Avaliacao> {
+
+	public AvaliacaoController(Validation<Avaliacao> validation) {
+		super(validation);
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * 

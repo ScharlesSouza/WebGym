@@ -8,10 +8,17 @@ import javax.inject.Named;
 
 import br.unitins.webgyn.model.Mensalidade;
 import br.unitins.webgyn.repository.MensalidadeRepository;
+import br.unitins.webgyn.validation.MensalidadeValidation;
+import br.unitins.webgyn.validation.Validation;
 
 @Named
 @ViewScoped
 public class MensalidadeController extends Controller<Mensalidade>  {
+
+	public MensalidadeController() {
+		super(new MensalidadeValidation());
+		// TODO Auto-generated constructor stub
+	}
 
 	private static final long serialVersionUID = -4270221378549569000L;
 
