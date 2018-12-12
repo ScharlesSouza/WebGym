@@ -10,11 +10,12 @@ import javax.inject.Named;
 
 import org.primefaces.event.SelectEvent;
 
+
 import br.unitins.webgyn.model.Aluno;
 import br.unitins.webgyn.model.FormaPagamento;
 import br.unitins.webgyn.model.PessoaFisica;
-import br.unitins.webgyn.model.Sexo;
 import br.unitins.webgyn.repository.AlunoRepository;
+import br.unitins.webgyn.validation.AlunoValidation;
 
 @Named
 @ViewScoped
@@ -30,6 +31,10 @@ public class AlunoController extends Controller<Aluno> {
 	private FormaPagamento formaPagamento;
 	
 	private List<Aluno> listaAluno = null;
+	
+	public AlunoController() {
+		super(new AlunoValidation());
+	}
 	
 
 	public Aluno getEntity() {

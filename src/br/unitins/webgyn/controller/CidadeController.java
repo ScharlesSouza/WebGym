@@ -3,8 +3,7 @@ package br.unitins.webgyn.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -12,10 +11,17 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
 import br.unitins.webgyn.model.Cidade;
+import br.unitins.webgyn.validation.CidadeValidation;
+
 
 @Named
 @ViewScoped
 public class CidadeController extends Controller<Cidade>  {
+
+	public CidadeController() {
+		super(new CidadeValidation());
+		// TODO Auto-generated constructor stub
+	}
 
 	private static final long serialVersionUID = 4689020451003580454L;
 

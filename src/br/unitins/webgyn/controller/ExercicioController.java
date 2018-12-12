@@ -12,10 +12,17 @@ import org.primefaces.event.SelectEvent;
 import br.unitins.webgyn.model.Equipamento;
 import br.unitins.webgyn.model.Exercicio;
 import br.unitins.webgyn.repository.ExercicioRepository;
+import br.unitins.webgyn.validation.ExercicioValidation;
+import br.unitins.webgyn.validation.Validation;
 
 @Named
 @ViewScoped
 public class ExercicioController extends Controller<Exercicio> {
+
+	public ExercicioController() {
+		super(new ExercicioValidation());
+	
+	}
 
 	/**
 	 * 
