@@ -29,9 +29,11 @@
 								columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
 								styleClass="ui-fluid card">
 								
+								
+							
 								<h:panelGroup>
 									<p:outputLabel value="Nome:" />
-									<p:inputText value="#{exercicioController.entity.nome}" />
+									<p:inputText  value="#{exercicioController.entity.nome}" />
 								</h:panelGroup>
 	
 								<h:panelGroup>
@@ -146,12 +148,14 @@
 								<p:column headerText="Nome">
 									<p:commandLink value="#{equipamento.nome}" 
 											oncomplete="PF('dlg').hide();">
-										<f:ajax render="formDados" execute="@all" update="itEquipamento"/>
+										<f:ajax render="formDados" execute="@this" update="itEquipamento"/>
 										<f:setPropertyActionListener value="#{equipamento}"
 											target="#{exercicioController.entity.equipamento}" />
 												
 									</p:commandLink>
 								</p:column>
+			
+								
 			
 								<p:column headerText="Descrição">
 									<h:outputText value="#{equipamento.descricao}" />
@@ -162,11 +166,8 @@
 								</p:column>
 							</p:dataTable>
 						</h:form>
-						</p:panel>
-						</p:dialog>
-					
-				<p:spacer />
-				
+					</p:panel>
+				</p:dialog>				
 				
 			</div>
 		

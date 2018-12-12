@@ -3,9 +3,12 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	<ui:composition template="/template.xhtml">
-		<ui:define name="conteudo">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/template.xhtml">
+
+	<!--codigo do conteudo principal  -->
+	<ui:define name="conteudo">
 			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 			 
 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
@@ -14,7 +17,7 @@
 			<div style="position: absolute; top: 100px; left: 80%" >
 				<p:growl autoUpdate="true" />
 			</div>
-			<h2 class="align-center">.: Cadastro de Instrutor :.</h2>
+			<h2 class="align-center">.: Cadastro de Alunos :.</h2>
 			<div class="ui-g-12">
 				<p:panel styleClass="card no-border" toggleable="true"
 					toggleSpeed="300">
@@ -32,47 +35,32 @@
 											value="Nome:" 
 											onclick="PF('dlg').show();"
 											process="@this"
-											style="color:blue; text-decoration: underline;">
-											
-											<p:ajax event="dialogReturn" 
-											        listener="#{instrutorController.pessoaFisicaSelecionada}" 
-											        update="itNome" />
-											</p:commandLink>
-											
-									<p:inputText id="itNome" value="#{instrutorController.entity.pessoaFisica.nome}" required="true">
+											style="color:blue; text-decoration: underline;"/>
+									<p:inputText id="itNome" value="#{pessoaController.entity.nome}" required="true">
 										<p:focus for="itNome" />								
 									</p:inputText>
 								</h:panelGroup>
-								
-								
-								<h:panelGroup>
-									<p:outputLabel value="Tipo de Usuário:"/>
-									<p:selectOneMenu value="#{instrutorController.entity.tipoUsuario}">
-										<f:selectItem itemLabel="Selecione ...." itemValue=""/>
-										<f:selectItems value="#{instrutorController.vetorTipoUsuario}"
-												var="tipo" itemLabel="#{tipo.label}" itemValue="#{tipo}"/>
-									</p:selectOneMenu>
-								</h:panelGroup>
-								
 		
 								<h:panelGroup>
-									<p:outputLabel value="Login:" />
-									<p:inputText value="#{instrutorController.entity.login}" />
-							
-									
+									<p:outputLabel value="Data de Nascimento:" />
+									<p:calendar value="#{pessoaController.entity.dataNascimento}"
+										pattern="dd/MM/yyyy" mask="true" locale="pt_BR" />
 								</h:panelGroup>
 		
 								<h:panelGroup>
-									<p:outputLabel value="Senha:" />
-									
-									<p:inputText value="#{instrutorController.entity.senha}" type="password" required="true" autocomplete="off"
-	                                     requiredMessage="A senha é obrigatória." />
-							
-							</h:panelGroup>		
-							<p:spacer />
+									<p:outputLabel value="Endereco:" />
+									<p:inputText value="#{pessoaController.entity.endereco}" >
+		
+									</p:inputText>
+								</h:panelGroup>
+								<h:panelGroup>
+									<p:outputLabel value="Email:" />
+									<p:inputText id="itEmail" value="#{pessoaController.entity.email}" />
+								</h:panelGroup>
+								<p:spacer />
 							</p:panelGrid>
+		
 						</div>
-						
 		
 						<p:spacer />
 		
@@ -81,18 +69,18 @@
 							layout="grid" styleClass="ui-fluid  ">
 		
 							<p:commandButton value="Incluir" styleClass="btn-primary btn-block"
-								disabled="#{instrutorController.entity.id != null}"
-								actionListener="#{instrutorController.incluir}"
+								disabled="#{pessoaController.entity.id != null}"
+								actionListener="#{pessoaController.incluir}"
 								update="@form formDataTable" process="@this pgDados" />
 		
 							<p:commandButton value="Alterar" styleClass="btn-primary btn-block"
-								disabled="#{instrutorController.entity.id == null}"
-								actionListener="#{instrutorController.alterar}"
+								disabled="#{pessoaController.entity.id == null}"
+								actionListener="#{pessoaController.alterar}"
 								update="@form formDataTable" process="@this pgDados" />
 		
 							<p:commandButton value="Excluir" styleClass="btn-primary btn-block"
-								disabled="#{instrutorController.entity.id == null}"
-								actionListener="#{instrutorControllers.remover}"
+								disabled="#{pessoaController.entity.id == null}"
+								actionListener="#{pessoaController.remover}"
 								update="@form formDataTable" process="@this pgDados">
 								<p:confirm header="Confirmação" 
 											message="Deseja realmente excluir?" 
@@ -100,7 +88,7 @@
 							</p:commandButton>
 
 							<p:commandButton value="Limpar" styleClass="btn-primary btn-block"
-								actionListener="#{intrutorController.limpar}"
+								actionListener="#{pessoaController.limpar}"
 								update="@form formDataTable" process="@this" />
 						</p:panelGrid>
 		
@@ -110,12 +98,11 @@
 		
 				</p:panel>
 				<p:spacer />
-				
-				<p:dialog header="Pesquisa de Pessoas" appendTo="@(body)" widgetVar="dlg" modal="true" height="400" closeOnEscape="true"  >
+				<p:dialog header="Modal Dialog" widgetVar="dlg" modal="true" height="400">
 					<h:form>
-						<p:inputText id="itPesquisa" value="#{pessoaFisicaController.pesquisa}"/>
+						<p:inputText id="itPesquisa" value="#{pessoaController.pesquisa}"/>
 						<p:commandButton value="Pesquisar" 
-							actionListener="#{pessoaFisicaController.pesquisar}"
+							actionListener="#{pessoaController.pesquisar}"
 							process="@this itPesquisa" 
 							update="formDataTable"/>
 					</h:form>
@@ -123,7 +110,7 @@
 						toggleSpeed="300">
 						<h:form id="formDataTable">
 							<p:dataTable styleClass="box-primary" var="pessoa"
-								value="#{pessoaFisicaController.listaPessoa}">
+								value="#{pessoaController.listaPessoa}">
 								<f:facet name="header">
 									<h:outputText value="Lista de Pessoas Cadastradas" />
 								</f:facet>
@@ -134,11 +121,9 @@
 								<p:column headerText="Nome">
 									<p:commandLink value="#{pessoa.nome}" 
 											oncomplete="PF('dlg').hide();">
-										<f:ajax render="formDados" execute="@this"  update="itNome"/>
+										<f:ajax render="formDados" execute="@this" />
 										<f:setPropertyActionListener value="#{pessoa}"
-											target="#{instrutorController.entity.pessoaFisica}" />
-											
-											
+											target="#{pessoaController.entity}" />
 									</p:commandLink>
 								</p:column>
 			
@@ -158,10 +143,13 @@
 							</p:dataTable>
 						</h:form>
 					</p:panel>
-				</p:dialog>				
-				
+				</p:dialog>
 			</div>
-		
 		</ui:define>
-	</ui:composition>	
+	<ui:define name="rodape">
+		<h:outputText value="2018 - WEBGYM - Todos os direitos reservados." />
+	</ui:define>
+
+</ui:composition>
+
 </html>

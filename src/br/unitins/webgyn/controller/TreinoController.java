@@ -4,15 +4,11 @@ package br.unitins.webgyn.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-
-import br.unitins.webgyn.model.Cidade;
-import br.unitins.webgyn.model.DiasSemana;
-import br.unitins.webgyn.model.Exercicio;
-import br.unitins.webgyn.model.Treino;
 import br.unitins.webgyn.repository.ExercicioRepository;
+import br.unitins.webgyn.model.Treino;
+import br.unitins.webgyn.model.Exercicio;
 import br.unitins.webgyn.repository.TreinoRepository;
 import br.unitins.webgyn.validation.Validation;
 
@@ -117,24 +113,6 @@ public class TreinoController extends Controller<Treino>  {
 			listaExercicio = repo.getExercicios("");
 		}
 		return listaExercicio;
-	}
-	
-	
-	
-	public DiasSemana[] getVetorDia() {
-		return DiasSemana.values();
-		
-		
-	}
-	
-	public void consultar() {
-		TreinoRepository repository = new TreinoRepository(getEntityManager());
-		//getListaTreino().addAll(repository.getTreinosDia(DiasSemana.SEGUNDA));
-		getListaTreino().addAll(repository.getTreinos(getEntity().getAluno().getId(),getEntity().getDia()));
-	    
-		if(getListaTreino().get(0)!=null)
-			setEntity(getListaTreino().get(0));
-		
 	}
 	
 

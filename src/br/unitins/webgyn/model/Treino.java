@@ -28,8 +28,6 @@ public class Treino extends DefaultEntity<Treino> {
 	@JoinTable(name="Treinoaluno", joinColumns= @JoinColumn(name="idtreino"), inverseJoinColumns =@JoinColumn(name="idaluno"))
 	private PessoaFisica aluno;
 	
-	private DiasSemana dia;
-	
 	private String grupoMuscular;
 
 	
@@ -57,14 +55,7 @@ public class Treino extends DefaultEntity<Treino> {
 		this.listaExercicio = listaExercicio;
 	}
 
-	public DiasSemana getDia() {
-		return dia;
-	}
-
-	public void setDia(DiasSemana diaSemana) {
-		this.dia = diaSemana;
-	}
-
+	
 	
 	
 	

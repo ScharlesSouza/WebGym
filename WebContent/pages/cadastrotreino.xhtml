@@ -31,12 +31,11 @@
 							columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
 							styleClass="ui-fluid card">
 
-
-
-
 							<h:panelGroup>
+
+
 								<p:commandLink for="itNome" value="Nome:"
-									process="@this" onclick="PF('dlg').show();"
+									onclick="PF('dlg').show();" process="@this"
 									style="color:blue; text-decoration: underline;">
 
 									<p:ajax event="dialogReturn"
@@ -44,24 +43,16 @@
 										update="itNome" />
 								</p:commandLink>
 
-								<p:inputText id="itNome"									
+								<p:inputText id="itNome"
 									value="#{treinoController.entity.aluno.nome}"
 									required="true">
-									
 									<p:focus for="itNome" />
 								</p:inputText>
 							</h:panelGroup>
-							
-							<h:panelGroup>
-									<p:outputLabel value="Dia da Semana:"/>
-									<p:selectOneMenu value="#{treinoController.entity.dia}">
-										<f:selectItem itemLabel="Selecione ...." itemValue=""/>
-										<f:selectItems value="#{treinoController.vetorDia}"
-												var="dia" itemLabel="#{dia.label}" itemValue="#{dia}"/>
-									</p:selectOneMenu>
-									
-							</h:panelGroup>
-							
+
+
+
+
 							<h:panelGroup>
 								<h:panelGrid id="panelExercicio" columns="2"
 									columnClasses="ui-grid-col-2, ui-grid-col-4" layout="grid">
@@ -115,7 +106,7 @@
 
 					<p:spacer />
 
-					<p:panelGrid columns="5" style="text-align: center;"
+					<p:panelGrid columns="4" style="text-align: center;"
 						columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
 						layout="grid" styleClass="ui-fluid  ">
 
@@ -143,10 +134,6 @@
 						<p:commandButton value="Limpar" styleClass="btn-primary btn-block"
 							actionListener="#{treinoController.limpar}"
 							update="@form formDataTable" process="@this" />
-							
-							<p:commandButton value="Consultar" styleClass="btn-primary btn-block"
-							actionListener="#{treinoController.consultar}"
-							update="@form formDados" process="@this" />
 					</p:panelGrid>
 
 
