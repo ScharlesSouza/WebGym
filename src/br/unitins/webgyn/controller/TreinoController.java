@@ -10,10 +10,18 @@ import br.unitins.webgyn.repository.ExercicioRepository;
 import br.unitins.webgyn.model.Treino;
 import br.unitins.webgyn.model.Exercicio;
 import br.unitins.webgyn.repository.TreinoRepository;
+import br.unitins.webgyn.validation.Validation;
 
 @Named
 @ViewScoped
 public class TreinoController extends Controller<Treino>  {
+
+	public TreinoController() {
+		super(null);
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	private static final long serialVersionUID = -4270221378549569000L;
 

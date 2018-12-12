@@ -7,10 +7,17 @@ import javax.inject.Named;
 
 import br.unitins.webgyn.model.Equipamento;
 import br.unitins.webgyn.repository.EquipamentoRepository;
+import br.unitins.webgyn.validation.EquipamentoValidation;
+import br.unitins.webgyn.validation.Validation;
 
 @Named
 @ViewScoped
 public class EquipamentoController extends Controller<Equipamento> {
+
+	public EquipamentoController() {
+		super(new EquipamentoValidation());
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * 

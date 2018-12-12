@@ -23,7 +23,7 @@ public class LoginController extends DefaultController {
 				.getInstrutor(getUsuario().getLogin(), getUsuario().getSenha());
 		
 		if (usuarioValidado == null) {
-			Util.addErroMessage("Usuário ou Senha inválido.");
+			Util.addErroMessage("Usuario ou Senha inválido.");
 			return null;
 		}
 		// setando o usuario na sessao

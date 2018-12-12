@@ -8,10 +8,16 @@ import javax.inject.Named;
 
 import br.unitins.webgyn.model.Endereco;
 import br.unitins.webgyn.repository.EnderecoRepository;
+import br.unitins.webgyn.validation.Validation;
 
 @Named
 @ViewScoped
 public class EnderecoController extends Controller<Endereco>  {
+
+	public EnderecoController() {
+		super(null);
+		// TODO Auto-generated constructor stub
+	}
 
 	private static final long serialVersionUID = -4270221378549569000L;
 

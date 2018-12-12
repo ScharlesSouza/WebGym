@@ -37,13 +37,19 @@
 									<p:inputText id="itNome" value="#{pessoaFisicaController.entity.nome}" required="true">
 										<p:focus for="itNome" />								
 									</p:inputText>
-								</h:panelGroup>
-		
-								<h:panelGroup>
+									
+									<p:outputLabel value="CPF:" />
+									<p:inputMask mask="999-999-999-99" value="#{pessoaFisicaController.entity.cpf}" ></p:inputMask>
 									<p:outputLabel value="Data de Nascimento:" />
 									<p:calendar value="#{pessoaFisicaController.entity.dataNascimento}"
 										pattern="dd/MM/yyyy" mask="true" locale="pt_BR" />
+										
+								    <p:outputLabel value="Email:" />
+									<p:inputText id="itEmail" value="#{pessoaFisicaController.entity.email}" />
 								</h:panelGroup>
+							
+		
+								
 		
 								<h:panelGroup>
 									<p:outputLabel value="Endereco:" />
@@ -55,22 +61,18 @@
 									<p:outputLabel value="Numero:" />
 									<p:inputText value="#{pessoaFisicaController.entity.endereco.numero}" />
 									
-									</h:panelGroup>
-									
-									<h:panelGroup>
-									
 									<p:outputLabel value="CEP:" />
-									<p:inputText value="#{pessoaFisicaController.entity.endereco.cep.cep}" maxlength="8" />
+									<p:inputMask mask="99999-999" value="#{pessoaFisicaController.entity.endereco.cep.cep}" maxlength="8" ></p:inputMask>
+									
 									
 									<p:outputLabel value="Bairro:" />
 									<p:inputText value="#{pessoaFisicaController.entity.endereco.cep.bairro}" />
-		
+
 									
 								</h:panelGroup>
-								<h:panelGroup>
-									<p:outputLabel value="Email:" />
-									<p:inputText id="itEmail" value="#{pessoaFisicaController.entity.email}" />
-								</h:panelGroup>
+								
+								
+							
 								
 								<h:panelGroup>
 									<p:commandLink 
